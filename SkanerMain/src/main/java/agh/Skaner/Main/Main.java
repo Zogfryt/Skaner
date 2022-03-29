@@ -16,18 +16,18 @@ public class Main {
             return;
         }
 
-        BufferedReader initialScanner = getScanner(args[1]);
+        PushbackReader initialScanner = getScanner(args[1]);
 
 
     }
 
-    private static BufferedReader getScanner(String path)
+    private static PushbackReader getScanner(String path)
     {
-        BufferedReader returnScanner = null;
+        PushbackReader returnScanner = null;
         try{
             FileInputStream file = new FileInputStream(path);
             InputStreamReader isr = new InputStreamReader(file, StandardCharsets.UTF_8);
-            returnScanner = new BufferedReader(isr);
+            returnScanner = new PushbackReader(isr);
         } catch (FileNotFoundException e) {
             LOGGER.log(Level.INFO,"plik nie istnieje");
             System.exit(100);
