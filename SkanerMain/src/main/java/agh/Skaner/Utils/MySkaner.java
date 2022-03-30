@@ -5,20 +5,18 @@ import agh.Skaner.Types.Token;
 import agh.Skaner.Types.Tuple;
 import java.io.IOException;
 import java.io.PushbackReader;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MySkaner {
     private static final Logger LOGGER = Logger.getLogger( Main.class.getName() );
     private final PushbackReader theScanner;
-    private final List<Tuple> listOfTokens;
+    private final TupleStorage listOfTokens;
 
     public MySkaner(PushbackReader scan)
     {
         theScanner = scan;
-        listOfTokens = new ArrayList<>();
+        listOfTokens = new TupleStorage();
     }
 
     public void startScanning() throws IOException {
@@ -32,7 +30,7 @@ public class MySkaner {
             }
             else if (Character.isDigit(ch))
             {
-
+                GetDigit(ch);
             }
         }
     }
@@ -42,9 +40,9 @@ public class MySkaner {
         boolean dotApppeared = false;
         build.append(firstChar);
         int c;
-        while(true)
+        while((c = theScanner.read()) != -1)
         {
-            c = theScanner.read();
+
             char ch = (char)c;
             if (ch == '.' && !dotApppeared)
             {
@@ -81,5 +79,20 @@ public class MySkaner {
 
             build.append(ch);
         }
+
+        if (dotApppeared)
+        {
+            listOfTokens.add(new Tuple(Token.FLOAT_NUMBER,build.toString()));
+        }
+        else
+        {
+            listOfTokens.add(new Tuple(Token.INT_NUMBER,build.toString()));
+        }
+
+    }
+
+    protected String returnListOfTuples()
+    {
+        return listOfTokens.toString();
     }
 }

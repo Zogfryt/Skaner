@@ -12,6 +12,6 @@ public class Tuple {
 
     @Override
     public String toString() {
-        return "(" + token.name() + "," + value + ")";
+        return "(" + token.name() + ";" + value + ")";
     }
 }
