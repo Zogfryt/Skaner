@@ -5,6 +5,9 @@ import agh.Skaner.Types.Token;
 import agh.Skaner.Types.Tuple;
 import java.io.IOException;
 import java.io.PushbackReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,6 +15,7 @@ public class MySkaner {
     private static final Logger LOGGER = Logger.getLogger( Main.class.getName() );
     private final PushbackReader theScanner;
     private final TupleStorage listOfTokens;
+    private final List<Character> arithmeticSymbols = new ArrayList<>(Arrays.asList('-','+','=','*','/','(',')'));
 
     public MySkaner(PushbackReader scan)
     {
@@ -31,6 +35,10 @@ public class MySkaner {
             else if (Character.isDigit(ch))
             {
                 GetDigit(ch);
+            }
+            else if (arithmeticSymbols.contains(ch))
+            {
+                getSpecialSymbol(ch);
             }
         }
     }
@@ -56,6 +64,7 @@ public class MySkaner {
             }
             else if(Character.isSpaceChar(ch) && dotApppeared)
             {
+                theScanner.unread(c);
                 listOfTokens.add(new Tuple(Token.FLOAT_NUMBER,build.toString()));
                 return;
             }
@@ -65,9 +74,16 @@ public class MySkaner {
                 listOfTokens.add(new Tuple(Token.INT_NUMBER,build.toString()));
                 return;
             }
-            else if (ch == '+' || ch == '-' || ch == '/' || ch == '*' || ch == '(' || ch == ')' || ch == '=')
+            else if (arithmeticSymbols.contains(ch) && !dotApppeared)
             {
-                theScanner.unread(c);
+                listOfTokens.add(new Tuple(Token.INT_NUMBER,build.toString()));
+                getSpecialSymbol(ch);
+                return;
+            }
+            else if (arithmeticSymbols.contains(ch) && dotApppeared)
+            {
+                listOfTokens.add(new Tuple(Token.FLOAT_NUMBER, build.toString()));
+                getSpecialSymbol(ch);
                 return;
             }
             else if (!Character.isDigit(ch))
@@ -91,8 +107,22 @@ public class MySkaner {
 
     }
 
+    private void getSpecialSymbol(char symbol) {
+        switch (symbol) {
+            case '-' -> listOfTokens.add(new Tuple(Token.MINUS, ""));
+            case '+' -> listOfTokens.add(new Tuple(Token.PLUS,""));
+            case '/' -> listOfTokens.add(new Tuple(Token.DIVISION,""));
+            case '*' -> listOfTokens.add(new Tuple(Token.MULTIPLICATION,""));
+            case '(' -> listOfTokens.add(new Tuple(Token.LEFT_PARENTHESIS,""));
+            case ')' -> listOfTokens.add(new Tuple(Token.RIGHT_PARENTHESIS,""));
+            case '=' -> listOfTokens.add(new Tuple(Token.ASSIGNMENT,""));
+        }
+    }
+
     protected String returnListOfTuples()
     {
         return listOfTokens.toString();
     }
+
+
 }

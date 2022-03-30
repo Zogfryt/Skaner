@@ -32,4 +32,45 @@ public class MySkanerTest {
         scanner.startScanning();
         Assertions.assertEquals("(INT_NUMBER;234)",scanner.returnListOfTuples());
     }
+
+    @Test
+    @DisplayName("Muliple numbers scan test")
+    void multipleIntNumbersScan() throws IOException {
+        setUpScanner("src/test/resources/MultipleNumbersInt");
+        scanner.startScanning();
+        Assertions.assertEquals("(INT_NUMBER;123),(INT_NUMBER;12),(INT_NUMBER;23423),(INT_NUMBER;899),(INT_NUMBER;456)",scanner.returnListOfTuples());
+    }
+
+    @Test
+    @DisplayName("Flooat number reading Test")
+    void floatReadingTest() throws IOException {
+        setUpScanner("src/test/resources/SingleFloatNumber");
+        scanner.startScanning();
+        Assertions.assertEquals("(FLOAT_NUMBER;123.45)",scanner.returnListOfTuples());
+    }
+
+    @Test
+    @DisplayName("Multiple float numbers test")
+    void multipleFloatTest() throws IOException {
+        setUpScanner("src/test/resources/MultipleFloatNumber");
+        scanner.startScanning();
+        Assertions.assertEquals("(FLOAT_NUMBER;123.45),(FLOAT_NUMBER;46.77),(FLOAT_NUMBER;123.)",scanner.returnListOfTuples());
+
+    }
+
+    @Test
+    @DisplayName("Mixed numbers read")
+    void MixedReadTest() throws IOException {
+        setUpScanner("src/test/resources/MixedNumbers");
+        scanner.startScanning();
+        Assertions.assertEquals("(INT_NUMBER;45),(FLOAT_NUMBER;123.4),(INT_NUMBER;1),(FLOAT_NUMBER;90.2)",scanner.returnListOfTuples());
+    }
+
+    @Test
+    @DisplayName("Arithmetic symbols read")
+    void arithmeticSymbolsReadTest() throws IOException {
+        setUpScanner("src/test/resources/AritheticSymbols");
+        scanner.startScanning();
+        Assertions.assertEquals("(LEFT_PARENTHESIS;),(PLUS;),(MINUS;),(MULTIPLICATION;),(DIVISION;),(RIGHT_PARENTHESIS;)",scanner.returnListOfTuples());
+    }
 }
