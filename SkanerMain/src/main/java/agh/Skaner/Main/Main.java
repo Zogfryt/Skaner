@@ -23,21 +23,23 @@ public class Main {
 
         PushbackReader initialScanner = getScanner(args[1]);
         */
-//        TupleStorage tupleStorage = new TupleStorage();
-//
-//        Tuple tuple1 = new Tuple(Token.INT,"dupa");
-//        Tuple tuple2 = new Tuple(Token.ASSIGNMENT,"=");
-//        Tuple tuple3 = new Tuple(Token.LEFT_PARENTHESIS,"(");
-//        Tuple tuple4 = new Tuple(Token.INT_NUMBER,"30");
-//        Tuple tuple5 = new Tuple(Token.END_OF_FILE,"EOF");
-//
-//        tupleStorage.add(tuple1);
-//        tupleStorage.add(tuple2);
-//        tupleStorage.add(tuple3);
-//        tupleStorage.add(tuple4);
-//        tupleStorage.add(tuple5);
-//
-//        ConvertingToHTML.Convert("file.html",tupleStorage.getListOfTuples());
+        TupleStorage tupleStorage = new TupleStorage();
+
+        Tuple tuple1 = new Tuple(Token.INT,"dupa");
+        Tuple tuple2 = new Tuple(Token.ASSIGNMENT,"=");
+        Tuple tuple3 = new Tuple(Token.LEFT_PARENTHESIS,"(");
+        Tuple tuple4 = new Tuple(Token.INT_NUMBER,"30");
+        Tuple tuple5 = new Tuple(Token.END_OF_FILE,"EOF");
+        Tuple tuple6 = new Tuple(Token.ERROR,"ERROR");
+
+        tupleStorage.add(tuple1);
+        tupleStorage.add(tuple2);
+        tupleStorage.add(tuple3);
+        tupleStorage.add(tuple4);
+        tupleStorage.add(tuple5);
+        tupleStorage.add(tuple6);
+
+        ConvertingToHTML.Convert("file.html",tupleStorage.getListOfTuples());
 
     }
 

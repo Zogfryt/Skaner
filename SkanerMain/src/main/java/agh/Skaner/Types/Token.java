@@ -13,7 +13,7 @@ public enum Token {
     FLOAT_NUMBER,
     INT_NUMBER,  //4kolor
     END_OF_FILE,  //5 kolor
-    WHITE_SPACE,
-    ID,
+    WHITE_SPACE, //---
+    ID,  //---
     ERROR
 }
