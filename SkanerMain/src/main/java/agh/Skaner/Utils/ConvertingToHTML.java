@@ -18,60 +18,33 @@ public class ConvertingToHTML {
         for(Tuple tuple : tupleList){
             switch (tuple.getToken()) {
                 //zielony kolor
-                case INT -> {
-                    bw.write("<span style=\"color: green\">int</span>");
-                    bw.newLine();
-                }
-                case FLOAT -> {
-                    bw.write("<span style=\"color: green\">float</span>");
+                case INT,FLOAT -> {
+                    bw.write("<span style=\"color: green\">" + tuple.getValue() + "</span>");
                     bw.newLine();
                 }
 
                 //czerwony kolor
-                case LEFT_PARENTHESIS -> {
-                    bw.write("<span style=\"color: red\">left_parenthesis</span>");
-                    bw.newLine();
-                }
-                case RIGHT_PARENTHESIS -> {
-                    bw.write("<span style=\"color: red\">right_parenthesis</span>");
+                case LEFT_PARENTHESIS,RIGHT_PARENTHESIS -> {
+                    bw.write("<span style=\"color: red\">" + tuple.getValue() + "</span>");
                     bw.newLine();
                 }
 
                 //pomaranczowy kolor
-                case PLUS -> {
-                    bw.write("<span style=\"color: orange\">plus</span>");
+                case PLUS,MINUS,MULTIPLICATION,DIVISION,ASSIGNMENT -> {
+                    bw.write("<span style=\"color: purple\">" + tuple.getValue() + "</span>");
                     bw.newLine();
                 }
-                case MINUS -> {
-                    bw.write("<span style=\"color: orange\">minus</span>");
-                    bw.newLine();
-                }
-                case MULTIPLICATION -> {
-                    bw.write("<span style=\"color: orange\">multiplication</span>");
-                    bw.newLine();
-                }
-                case DIVISION -> {
-                    bw.write("<span style=\"color: orange\">division</span>");
-                    bw.newLine();
-                }
-                case ASSIGNMENT -> {
-                    bw.write("<span style=\"color: orange\">assigment</span>");
-                    bw.newLine();
-                }
+
 
                 //niebieski kolor
-                case FLOAT_NUMBER -> {
-                    bw.write("<span style=\"color: blue\">float_number</span>");
-                    bw.newLine();
-                }
-                case INT_NUMBER -> {
-                    bw.write("<span style=\"color: blue\">int_number</span>");
+                case FLOAT_NUMBER, INT_NUMBER -> {
+                    bw.write("<span style=\"color: blue\">" + tuple.getValue() + "</span>");
                     bw.newLine();
                 }
 
-                //zolty kolor
+                //bialy kolor
                 case END_OF_FILE -> {
-                    bw.write("<span style=\"color: yellow\">end_of_file</span>");
+                    bw.write("<span style=\"color: transparent\">" + tuple.getValue() + "</span>");
                     bw.newLine();   //trzeba nie trzeba?
                 }
             }

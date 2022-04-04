@@ -12,5 +12,5 @@ public enum Token {
     ASSIGNMENT, //3kolor
     FLOAT_NUMBER,
     INT_NUMBER,  //4kolor
-    END_OF_FILE
+    END_OF_FILE  //5 kolor
 }
