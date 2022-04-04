@@ -29,7 +29,7 @@ public class ConvertingToHTML {
                     bw.newLine();
                 }
 
-                //pomaranczowy kolor
+                //fioletowy kolor
                 case PLUS,MINUS,MULTIPLICATION,DIVISION,ASSIGNMENT -> {
                     bw.write("<span style=\"color: purple\">" + tuple.getValue() + "</span>");
                     bw.newLine();
@@ -42,7 +42,7 @@ public class ConvertingToHTML {
                     bw.newLine();
                 }
 
-                //bialy kolor
+                //kolor tła
                 case END_OF_FILE -> {
                     bw.write("<span style=\"color: transparent\">" + tuple.getValue() + "</span>");
                     bw.newLine();   //trzeba nie trzeba?
