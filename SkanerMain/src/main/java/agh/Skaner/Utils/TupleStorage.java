@@ -7,7 +7,11 @@ import java.util.List;
 
 public class TupleStorage {
 
-    private List<Tuple> listOfTuples;
+    public List<Tuple> getListOfTuples() {
+        return listOfTuples;
+    }
+
+    private final List<Tuple> listOfTuples;
 
     public TupleStorage(List<Tuple> list)
     {
