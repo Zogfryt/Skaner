@@ -28,17 +28,21 @@ public class MySkaner {
         while((c = theScanner.read()) != -1)
         {
             char ch = (char) c;
-            if (Character.isSpaceChar(ch))
-            {
-                continue;
-            }
-            else if (Character.isDigit(ch))
+            if (Character.isDigit(ch))
             {
                 GetDigit(ch);
             }
             else if (arithmeticSymbols.contains(ch))
             {
                 getSpecialSymbol(ch);
+            }
+            else if (Character.isSpaceChar(ch))
+            {
+                getWhiteSymbol(ch);
+            }
+            else if (Character.isLetter(ch) || ch == '_')
+            {
+                getIdName(ch);
             }
         }
     }
@@ -64,26 +68,26 @@ public class MySkaner {
             }
             else if(Character.isSpaceChar(ch) && dotApppeared)
             {
-                theScanner.unread(c);
                 listOfTokens.add(new Tuple(Token.FLOAT_NUMBER,build.toString()));
+                theScanner.unread(c);
                 return;
             }
             else if (Character.isSpaceChar(ch) && !dotApppeared)
             {
-                theScanner.unread(c);
                 listOfTokens.add(new Tuple(Token.INT_NUMBER,build.toString()));
+                theScanner.unread(c);
                 return;
             }
             else if (arithmeticSymbols.contains(ch) && !dotApppeared)
             {
                 listOfTokens.add(new Tuple(Token.INT_NUMBER,build.toString()));
-                getSpecialSymbol(ch);
+                theScanner.unread(c);
                 return;
             }
             else if (arithmeticSymbols.contains(ch) && dotApppeared)
             {
                 listOfTokens.add(new Tuple(Token.FLOAT_NUMBER, build.toString()));
-                getSpecialSymbol(ch);
+                theScanner.unread(c);
                 return;
             }
             else if (!Character.isDigit(ch))
@@ -117,6 +121,42 @@ public class MySkaner {
             case ')' -> listOfTokens.add(new Tuple(Token.RIGHT_PARENTHESIS,""));
             case '=' -> listOfTokens.add(new Tuple(Token.ASSIGNMENT,""));
         }
+    }
+
+    private void getWhiteSymbol(char symbol)
+    {
+        listOfTokens.add(new Tuple(Token.WHITE_SPACE,String.valueOf(symbol)));
+    }
+
+    private void getIdName(char first) throws IOException {
+        StringBuilder build = new StringBuilder();
+        build.append(first);
+        int c;
+        while ((c = theScanner.read()) != -1)
+        {
+            char ch = (char)c;
+            if (Character.isSpaceChar(ch))
+            {
+                listOfTokens.add(new Tuple(Token.ID,build.toString()));
+                theScanner.unread(c);
+                return;
+            }
+            if (arithmeticSymbols.contains(ch))
+            {
+                listOfTokens.add(new Tuple(Token.ID, build.toString()));
+                theScanner.unread(c);
+                return;
+            }
+            else if (!Character.isLetterOrDigit(ch) && ch != '_')
+            {
+                LOGGER.log(Level.INFO,"Zła nazwa zmiennej");
+                //TODO: obsługa błędu
+                return;
+            }
+            build.append(ch);
+        }
+
+        listOfTokens.add(new Tuple(Token.ID,build.toString()));
     }
 
     protected String returnListOfTuples()

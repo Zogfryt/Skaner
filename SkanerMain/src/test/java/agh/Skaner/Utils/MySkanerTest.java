@@ -73,4 +73,12 @@ public class MySkanerTest {
         scanner.startScanning();
         Assertions.assertEquals("(LEFT_PARENTHESIS;),(PLUS;),(MINUS;),(MULTIPLICATION;),(DIVISION;),(RIGHT_PARENTHESIS;)",scanner.returnListOfTuples());
     }
+
+    @Test
+    @DisplayName("ID reading test")
+    void IDreadingtest() throws IOException {
+        setUpScanner("src/test/resources/IdSingle");
+        scanner.startScanning();
+        Assertions.assertEquals("(ID;Jacek_W3n4)",scanner.returnListOfTuples());
+    }
 }
