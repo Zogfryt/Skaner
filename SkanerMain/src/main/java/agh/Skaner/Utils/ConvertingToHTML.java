@@ -1,6 +1,5 @@
 package agh.Skaner.Utils;
 
-import agh.Skaner.Types.Token;
 import agh.Skaner.Types.Tuple;
 
 import java.io.BufferedWriter;
@@ -74,7 +73,7 @@ public class ConvertingToHTML {
 
                 //czerwony kolor
                 case ERROR -> {
-                    bw.write("<span style=\"color: red; text_decoration: underline\">" + tuple.getValue() + "</span>");
+                    bw.write("<span style=\"color: red; text-decoration: underline\">" + tuple.getValue() + "</span>");
                     bw.newLine();
                 }
                 //rozowy kolor
@@ -84,7 +83,14 @@ public class ConvertingToHTML {
                 }
                 //cyan?
                 case WHITE_SPACE -> {
-                    bw.write("<span style=\"color: cyan\">" + tuple.getValue() + "</span>");
+                    if (tuple.getValue().equals("\n"))
+                    {
+                        bw.write("<br>");
+                    }
+                    else
+                    {
+                        bw.write("<span style=\"color: cyan\">" + tuple.getValue() + "</span>");
+                    }
                     bw.newLine();
                 }
 
