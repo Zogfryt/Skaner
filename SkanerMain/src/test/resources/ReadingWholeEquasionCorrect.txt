@@ -1,0 +1,1 @@
+Moja_zmienna = 45.6 + 7
